@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	resolveDomain = kingpin.Flag("resolve.domain", "Detect the domain name resolved by dns, It is recommended to add two domain names, one public domain name and one k8s service name").Default("www.allsmartcloud.com", "metrics-server.kube-system").Strings()
+	resolveDomain = kingpin.Flag("resolve.domain", "Detect the domain name resolved by dns, It is recommended to add two domain names, one public domain name and one k8s service name").Default("www.allsmartcloud.com", "kubernetes.default").Strings()
 )
 
 func init() {
