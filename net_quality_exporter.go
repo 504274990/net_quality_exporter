@@ -24,8 +24,8 @@ var (
 	pingLargeSize   = kingpin.Flag("ping.largesize", "The size of each large ping packet.").Default("1000").Int()
 	pingTimeout     = kingpin.Flag("ping.timeout", "The entire timeout period of each ping runner.").Default("20s").Duration()
 	pingCount       = kingpin.Flag("ping.count", "The number of packets sent by each ping runner.").Default("10").Int()
-	pingPkgInterval = kingpin.Flag("ping.pkg.interval", "The interval of each ping packet, default is aliyun.com's address").Default("500ms").Duration()
-	pingTarget      = kingpin.Flag("ping.target", "The interval of each ping packet, must be domain name").Default("106.11.172.9").String()
+	pingPkgInterval = kingpin.Flag("ping.pkg.interval", "The interval of each ping packet.").Default("500ms").Duration()
+	pingTarget      = kingpin.Flag("ping.target", "The interval of each ping packet, must be domain name, default is aliyun.com's address.").Default("106.11.172.9").String()
 	logger          log.Logger
 )
 
