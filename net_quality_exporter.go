@@ -19,7 +19,7 @@ const version string = "0.0.1"
 var (
 	listenAddress   = kingpin.Flag("web.listen-address", "Address to listen on for web interface.").Default(":9231").String()
 	metricsPath     = kingpin.Flag("web.telemetry-path", "Path under which to expose metrics.").Default("/metrics").String()
-	pingInterval    = kingpin.Flag("ping.interval", "Each ping runner interval time.").Default("10s").Duration()
+	pingInterval    = kingpin.Flag("ping.interval", "Each ping runner interval time.").Default("60s").Duration()
 	pingSize        = kingpin.Flag("ping.size", "The size of each ping packet.").Default("32").Int()
 	pingLargeSize   = kingpin.Flag("ping.largesize", "The size of each large ping packet.").Default("1000").Int()
 	pingTimeout     = kingpin.Flag("ping.timeout", "The entire timeout period of each ping runner.").Default("20s").Duration()
