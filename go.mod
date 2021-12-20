@@ -11,5 +11,6 @@ require (
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
+	golang.org/x/net v0.0.0-20210525063256-abc453219eb5 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )

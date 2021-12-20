@@ -4,9 +4,11 @@ import (
 	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/promlog"
+	"golang.org/x/net/context"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"net"
 	"sync"
+	"time"
 )
 
 var (
@@ -48,13 +50,32 @@ func (r *ResolveCollector) Collect(ch chan<- prometheus.Metric) {
 	r.resolveMutex.Lock()
 	defer r.resolveMutex.Unlock()
 	for _, domain := range *resolveDomain {
-		r.ResolveDns(domain)
-		ch <- prometheus.MustNewConstMetric(r.dnsResolveDesc, prometheus.GaugeValue, r.dnsResolveResult.DnsStatus, domain)
+		if domain == "kubernetes.default" {
+			dnsAddress := "10.43.0.10:53"
+			r.ResolveDns(domain, dnsAddress, true)
+			ch <- prometheus.MustNewConstMetric(r.dnsResolveDesc, prometheus.GaugeValue, r.dnsResolveResult.DnsStatus, domain)
+		} else {
+			dnsAddress := "223.5.5.5:53"
+			r.ResolveDns(domain, dnsAddress, false)
+			ch <- prometheus.MustNewConstMetric(r.dnsResolveDesc, prometheus.GaugeValue, r.dnsResolveResult.DnsStatus, domain)
+		}
+
 	}
 }
 
-func (r *ResolveCollector) ResolveDns(domain string) {
-	_, err := net.LookupHost(domain)
+func (r *ResolveCollector) ResolveDns(domain string, dnsAddr string, preferGo bool) {
+
+	d := &net.Resolver{
+		PreferGo: preferGo,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+			d := net.Dialer{
+				Timeout: 10 * time.Second,
+			}
+			return d.DialContext(ctx, "udp", dnsAddr)
+		},
+	}
+
+	_, err := d.LookupHost(context.Background(), domain)
 	if err != nil {
 		level.Error(logger).Log("msg", "Error resolve host", "err", err)
 		r.dnsResolveResult.DnsStatus = 0
