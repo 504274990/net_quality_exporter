@@ -20,7 +20,7 @@ usage: net_quality_exporter [<flags>]
 
 Flags:
   -h, --help                     Show context-sensitive help (also try --help-long and --help-man).
-      --resolve.domain=www.allsmartcloud.com... ...  
+      --resolve.domain=www.aliyun.com... ...  
                                  Detect the domain name resolved by dns, It is recommended to add two domain names, one public domain name and one k8s service name
       --web.listen-address=":9331"  
                                  Address to listen on for web interface.
