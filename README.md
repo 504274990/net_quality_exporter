@@ -9,6 +9,7 @@
 > 可同时监测 k8s 内网和公网两种 dns 解析状态
 
 **配置的grafana面板如下**
+
 ![image](https://user-images.githubusercontent.com/13415530/198239144-697e2762-2558-4a04-a51e-e7e351bc62f8.png)
 
 **使用方法**
